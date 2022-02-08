@@ -8,4 +8,4 @@ matplotlib.pyplot.plot(backLegSensorValues, label='Back Leg Values', linewidth=4
 matplotlib.pyplot.plot(frontLegSensorValues, label='Front Leg Values')
 
 matplotlib.pyplot.legend()
-matplotlib.pyplot.show()
+# matplotlib.pyplot.show()
