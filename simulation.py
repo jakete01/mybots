@@ -1,5 +1,6 @@
 import time
 import os
+import random
 import numpy as np
 import pybullet_data
 import pybullet as p
@@ -18,11 +19,17 @@ backLegSensorValues = np.zeros(1000)
 frontLegSensorValues = np.zeros(1000)
 for i in range(1000):
     p.stepSimulation()
+
     backLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
     frontLegSensorValues[i] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
+
     pyrosim.Set_Motor_For_Joint(bodyIndex=robotId, jointName="Torso_BackLeg", controlMode=p.POSITION_CONTROL,
-                                targetPosition=0.0, maxForce=500)
-    time.sleep(1/60)
+                                targetPosition=-np.pi/4, maxForce=500)
+
+    pyrosim.Set_Motor_For_Joint(bodyIndex=robotId, jointName="Torso_FrontLeg", controlMode=p.POSITION_CONTROL,
+                                targetPosition=np.pi/4, maxForce=500)
+
+    time.sleep(1/200)
 
 np.save(os.path.join('./data', 'backLegSensorValues.npy'), backLegSensorValues)
 np.save(os.path.join('./data', 'frontLegSensorValues.npy'), frontLegSensorValues)
