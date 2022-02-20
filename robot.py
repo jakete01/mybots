@@ -3,6 +3,7 @@ import pybullet as p
 from sensor import SENSOR
 from motor import MOTOR
 import constants as c
+import numpy as np
 
 
 class ROBOT:
@@ -32,8 +33,11 @@ class ROBOT:
         self.motors = {}
 
         for jointName in pyrosim.jointNamesToIndices:
-            self.motors[jointName] = MOTOR(jointName)
-
+            print(jointName)
+            if jointName == 'Torso_BackLeg':
+                self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency, self.offset)
+            else:
+                self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency / 2, self.offset)
 
     def Act(self, i):
         for m in self.motors:

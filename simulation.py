@@ -3,7 +3,6 @@ from robot import ROBOT
 import time
 import pybullet_data
 import pybullet as p
-import pyrosim.pyrosim as pyrosim
 
 
 class SIMULATION:
