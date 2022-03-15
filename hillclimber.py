@@ -10,14 +10,19 @@ class HILLCLIMBER:
         self.parent.Create_Brain()
 
     def Evolve(self):
-        self.parent.Evaluate()
-        for currentGeneration in constants.numberOfGenerations:
-            self.Evolve_For_One_Generation()
+        self.parent.Evaluate('DIRECT')
+        for currentGeneration in range(constants.numberOfGenerations):
+            if currentGeneration == 0:
+                self.Evolve_For_One_Generation('GUI')
+            else:
+                self.Evolve_For_One_Generation('DIRECT')
+        self.Show_Best()
 
-    def Evolve_For_One_Generation(self):
+    def Evolve_For_One_Generation(self, mode):
         self.Spawn()
         self.Mutate()
-        self.child.Evaluate()
+        self.child.Evaluate(mode)
+        self.Print()
         self.Select()
 
     def Spawn(self):
@@ -27,5 +32,11 @@ class HILLCLIMBER:
         self.child.Mutate()
 
     def Select(self):
-        pass
+        if self.parent.fitness < self.child.fitness:
+            self.parent = self.child
 
+    def Print(self):
+        print(str(self.parent.fitness) + ' ' + str(self.child.fitness))
+
+    def Show_Best(self):
+        self.parent.Evaluate('GUI')
