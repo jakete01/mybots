@@ -39,7 +39,7 @@ class ROBOT:
             if jointName == 'Torso_BackLeg':
                 self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency, self.offset)
             else:
-                self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency / 2, self.offset)
+                self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency, self.offset)
 
     def Act(self, i):
         for neuronName in self.nn.Get_Neuron_Names():
