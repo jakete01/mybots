@@ -23,6 +23,9 @@ class SIMULATION:
         p.disconnect()
 
 
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
+
     def Run(self):
         for i in range(1000):
             p.stepSimulation()
