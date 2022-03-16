@@ -1,12 +1,11 @@
 import random
-
+import time
 import numpy as np
 import os
 import pyrosim.pyrosim as pyrosim
 
 
 class SOLUTION:
-
 
     def __init__(self):
         self.weights = np.random.rand(3, 2)
@@ -18,7 +17,9 @@ class SOLUTION:
     def Evaluate(self, mode):
         self.Create_Brain()
         self.Create_Body()
-        os.system('python3 simulate.py ' + mode)
+        self.Create_World()
+        os.system("python3 simulate.py " + mode + " &")
+        # os.system("python3 simulate.py " + mode)
         f = open('fitness.txt', 'r')
         self.fitness = float(f.readline())
         f.close()
@@ -42,7 +43,8 @@ class SOLUTION:
                            position=[0.5, 0, 1])
         pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5], size=[length, width, height])
         pyrosim.End()
-
+        while not os.path.exists('fitness.txt'):
+            time.sleep(0.01)
 
     def Create_Brain(self):
         pyrosim.Start_NeuralNetwork("brain.nndf")
@@ -58,7 +60,21 @@ class SOLUTION:
                                      weight=self.weights[currentRow][currentColumn])
 
         pyrosim.End()
+        while not os.path.exists('brain.nndf'):
+            time.sleep(0.01)
 
+    def Create_World(self):
+        length = 1
+        width = 1
+        height = 1
+        x = 0
+        y = 0
+        z = 0.5
+        pyrosim.Start_SDF("world.sdf")
+        pyrosim.Send_Cube(name="Box", pos=[x - 10, y - 10, z], size=[length, width, height])
+        pyrosim.End()
+        while not os.path.exists('world.sdf'):
+            time.sleep(0.01)
 
     def Mutate(self):
         randomRow = random.randint(0, 2)

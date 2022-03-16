@@ -8,6 +8,7 @@ import pybullet as p
 class SIMULATION:
 
     def __init__(self, directOrGUI):
+        self.directOrGUI = directOrGUI
         if directOrGUI == 'DIRECT':
             self.physicsClient = p.connect(p.DIRECT)
         elif directOrGUI == 'GUI':
@@ -33,7 +34,9 @@ class SIMULATION:
     def Run(self):
         for i in range(1000):
             p.stepSimulation()
-            time.sleep(1/5000)
+            if self.directOrGUI == 'GUI':
+                time.sleep(1/5000)
+
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
