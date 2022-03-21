@@ -18,8 +18,7 @@ class SOLUTION:
         self.Create_Brain()
         self.Create_Body()
         self.Create_World()
-        os.system("python3 simulate.py " + mode + " &")
-        # os.system("python3 simulate.py " + mode)
+        os.system("python3 simulate.py " + mode + ' &')
 
         while not os.path.exists('fitness.txt'):
             time.sleep(0.01)
@@ -45,6 +44,7 @@ class SOLUTION:
         pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5], size=[length, width, height])
         pyrosim.End()
         while not os.path.exists('body1.urdf'):
+            print('sleeping')
             time.sleep(0.01)
 
     def Create_Brain(self):
@@ -62,6 +62,7 @@ class SOLUTION:
 
         pyrosim.End()
         while not os.path.exists('brain.nndf'):
+            print('sleeping')
             time.sleep(0.01)
 
     def Create_World(self):
@@ -74,7 +75,9 @@ class SOLUTION:
         pyrosim.Start_SDF("world.sdf")
         pyrosim.Send_Cube(name="Box", pos=[x - 10, y - 10, z], size=[length, width, height])
         pyrosim.End()
+
         while not os.path.exists('world.sdf'):
+            print('sleeping')
             time.sleep(0.01)
 
     def Mutate(self):

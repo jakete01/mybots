@@ -15,6 +15,7 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self):
         for i in self.parents:
+            print('parent ' + str(i))
             self.parents[i].Evaluate('GUI')
 
         # self.parent.Evaluate('DIRECT')
