@@ -20,6 +20,10 @@ class SOLUTION:
         self.Create_World()
         os.system("python3 simulate.py " + mode + " &")
         # os.system("python3 simulate.py " + mode)
+
+        while not os.path.exists('fitness.txt'):
+            time.sleep(0.01)
+
         f = open('fitness.txt', 'r')
         self.fitness = float(f.readline())
         f.close()
@@ -31,9 +35,6 @@ class SOLUTION:
         x = 0
         y = 0
         z = 0.5
-        pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name="Box", pos=[x - 10, y - 10, z], size=[length, width, height])
-        pyrosim.End()
         pyrosim.Start_URDF("body1.urdf")
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1.5], size=[length, width, height])
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute",
@@ -43,7 +44,7 @@ class SOLUTION:
                            position=[0.5, 0, 1])
         pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5], size=[length, width, height])
         pyrosim.End()
-        while not os.path.exists('fitness.txt'):
+        while not os.path.exists('body1.urdf'):
             time.sleep(0.01)
 
     def Create_Brain(self):

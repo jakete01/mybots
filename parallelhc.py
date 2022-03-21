@@ -12,7 +12,6 @@ class PARALLEL_HILL_CLIMBER:
 
         # self.parent = solution.SOLUTION()
         # self.parent.Create_Brain()
-        pass
 
     def Evolve(self):
         for i in self.parents:
