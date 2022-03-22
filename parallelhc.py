@@ -7,15 +7,16 @@ class PARALLEL_HILL_CLIMBER:
 
     def __init__(self):
         self.parents = {}
+        self.nextAvailableID = 0
         for i in range(0, constants.populationSize):
-            self.parents.update({i: solution.SOLUTION()})
+            self.parents.update({i: solution.SOLUTION(self.nextAvailableID)})
+            self.nextAvailableID += 1
 
         # self.parent = solution.SOLUTION()
         # self.parent.Create_Brain()
 
     def Evolve(self):
         for i in self.parents:
-            print('parent ' + str(i))
             self.parents[i].Evaluate('GUI')
 
         # self.parent.Evaluate('DIRECT')
@@ -33,18 +34,19 @@ class PARALLEL_HILL_CLIMBER:
         self.Print()
         self.Select()
 
-    def Spawn(self):
-        self.child = copy.deepcopy(self.parent)
+    def Spawn(self, index):
+        self.child = copy.deepcopy(self.parents[index])
+        self.nextAvailableID += 1
 
     def Mutate(self):
         self.child.Mutate()
 
     def Select(self):
-        if self.parent.fitness > self.child.fitness:
-            self.parent = self.child
+        if self.parents.fitness > self.child.fitness:
+            self.parents = self.child
 
     def Print(self):
-        print(str(self.parent.fitness) + ' ' + str(self.child.fitness))
+        print(str(self.parents.fitness) + ' ' + str(self.child.fitness))
 
     def Show_Best(self):
-        self.parent.Evaluate('GUI')
+        self.parents.Evaluate('GUI')
