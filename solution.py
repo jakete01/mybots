@@ -21,7 +21,7 @@ class SOLUTION:
         self.Create_World()
         os.system("python3 simulate.py " + mode + " " + str(self.myID) + " &")
 
-        while not os.path.exists('fitness.txt'):
+        while not os.path.exists('fitness' + str(self.myID) + '.txt'):
             time.sleep(0.01)
 
         f = open('fitness' + str(self.myID) + '.txt', 'r')
@@ -46,7 +46,6 @@ class SOLUTION:
         pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5], size=[length, width, height])
         pyrosim.End()
         while not os.path.exists('body1.urdf'):
-            print('sleeping')
             time.sleep(0.01)
 
     def Create_Brain(self):
@@ -63,8 +62,7 @@ class SOLUTION:
                                      weight=self.weights[currentRow][currentColumn])
 
         pyrosim.End()
-        while not os.path.exists('brain.nndf'):
-            print('sleeping')
+        while not os.path.exists('brain' + str(self.myID) + '.nndf'):
             time.sleep(0.01)
 
     def Create_World(self):
@@ -79,7 +77,6 @@ class SOLUTION:
         pyrosim.End()
 
         while not os.path.exists('world.sdf'):
-            print('sleeping')
             time.sleep(0.01)
 
     def Mutate(self):
@@ -90,3 +87,20 @@ class SOLUTION:
     def Set_ID(self, id):
         self.myID = id
 
+    def Start_Simulation(self, mode):
+        self.Create_Brain()
+        self.Create_Body()
+        self.Create_World()
+        os.system("python3 simulate.py " + mode + " " + str(self.myID) + " &")
+
+    def Wait_For_Simulation_To_END(self):
+        while not os.path.exists('fitness' + str(self.myID) + '.txt'):
+            time.sleep(0.01)
+
+        f = open('fitness' + str(self.myID) + '.txt', 'r')
+        self.fitness = float(f.readline())
+        f.close()
+        os.system('rm fitness' + str(self.myID) + '.txt')
+
+    def Get_Fitness(self):
+        return self.fitness

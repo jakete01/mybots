@@ -12,41 +12,57 @@ class PARALLEL_HILL_CLIMBER:
             self.parents.update({i: solution.SOLUTION(self.nextAvailableID)})
             self.nextAvailableID += 1
 
-        # self.parent = solution.SOLUTION()
-        # self.parent.Create_Brain()
-
     def Evolve(self):
-        for i in self.parents:
-            self.parents[i].Evaluate('GUI')
+        self.Evaluate(self.parents)
 
-        # self.parent.Evaluate('DIRECT')
-        # for currentGeneration in range(constants.numberOfGenerations):
-        #     if currentGeneration == 0:
-        #         self.Evolve_For_One_Generation('GUI')
-        #     else:
-        #         self.Evolve_For_One_Generation('DIRECT')
-        # self.Show_Best()
+        for currentGeneration in range(constants.numberOfGenerations):
+            if currentGeneration == 0:
+                self.Evolve_For_One_Generation('GUI')
+            else:
+                self.Evolve_For_One_Generation('DIRECT')
+        self.Show_Best()
 
     def Evolve_For_One_Generation(self, mode):
         self.Spawn()
         self.Mutate()
-        self.child.Evaluate(mode)
+        self.Evaluate(self.children)
         self.Print()
         self.Select()
 
-    def Spawn(self, index):
-        self.child = copy.deepcopy(self.parents[index])
-        self.nextAvailableID += 1
+    def Spawn(self):
+        self.children = {}
+        for i in range(0, constants.populationSize):
+            self.children.update({i: copy.deepcopy(self.parents[i])})
+            self.children[i].Set_ID(self.nextAvailableID)
+            self.nextAvailableID += 1
 
     def Mutate(self):
-        self.child.Mutate()
+        for i in range(0, constants.populationSize):
+            self.children[i].Mutate()
 
     def Select(self):
-        if self.parents.fitness > self.child.fitness:
-            self.parents = self.child
+        for i in range(0, constants.populationSize):
+            if self.parents[i].fitness > self.children[i].fitness:
+                self.parents[i] = self.children[i]
 
     def Print(self):
-        print(str(self.parents.fitness) + ' ' + str(self.child.fitness))
+        print()
+        for i in range(0, constants.populationSize):
+            print(str(self.parents[i].fitness) + ' ' + str(self.children[i].fitness))
+        print()
 
     def Show_Best(self):
-        self.parents.Evaluate('GUI')
+        lowest = 100
+        index = 0
+        for i in range(0, constants.populationSize):
+            if self.parents[i].fitness < lowest:
+                lowest = self.parents[i].fitness
+                index = i
+        self.parents[index].Start_Simulation('GUI')
+
+    def Evaluate(self, solutions):
+        for i in solutions:
+            solutions[i].Start_Simulation('DIRECT')
+
+        for i in solutions:
+            solutions[i].Wait_For_Simulation_To_END()

@@ -13,7 +13,6 @@ class ROBOT:
         self.solutionID = solutionID
         self.robotId = p.loadURDF("body1.urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)
-        print('brain' + str(solutionID) + '.nndf')
         self.nn = NEURAL_NETWORK('brain' + str(solutionID) + '.nndf')
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
@@ -38,7 +37,6 @@ class ROBOT:
         self.motors = {}
 
         for jointName in pyrosim.jointNamesToIndices:
-            print(jointName)
             if jointName == 'Torso_BackLeg':
                 self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency, self.offset)
             else:
@@ -58,6 +56,7 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
-        f = open('fitness' + str(self.solutionID) + '.txt', 'w')
+        f = open('tmp' + str(self.solutionID) + '.txt', 'w')
         f.write(str(xCoordinateOfLinkZero))
         f.close()
+        os.system('mv tmp' + str(self.solutionID) + '.txt fitness' + str(self.solutionID) + '.txt')

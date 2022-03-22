@@ -1,6 +1,8 @@
 import os
 import parallelhc
 
+os.system('rm brain*.nndf')
+os.system('rm fitness*.txt')
 phc = parallelhc.PARALLEL_HILL_CLIMBER()
 phc.Evolve()
 
