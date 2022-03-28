@@ -3,14 +3,15 @@ import time
 import numpy as np
 import os
 import pyrosim.pyrosim as pyrosim
+import constants as c
 
 
 class SOLUTION:
 
     def __init__(self, id):
         self.myID = id
-        self.weights = np.random.rand(3, 2)
-        self.weights = self.weights * 2 - 1
+        self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons)
+        self.weights = self.weights * (c.numSensorNeurons - 1) - (c.numMotorNeurons - 1)
 
     def Get_Weights(self):
         return self.weights
@@ -19,8 +20,7 @@ class SOLUTION:
         self.Create_Brain()
         self.Create_Body()
         self.Create_World()
-        os.system("python3 simulate.py " + mode + " " + str(self.myID) + " &")
-
+        os.system("python3 simulate.py " + mode + " " + str(self.myID) + "2&>1 &")
         while not os.path.exists('fitness' + str(self.myID) + '.txt'):
             time.sleep(0.01)
 
@@ -33,9 +33,6 @@ class SOLUTION:
         length = 1
         width = 1
         height = 1
-        x = 0
-        y = 0
-        z = 0.5
         pyrosim.Start_URDF("body1.urdf")
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1.5], size=[length, width, height])
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute",
@@ -56,9 +53,9 @@ class SOLUTION:
         pyrosim.Send_Motor_Neuron(name=3, jointName='Torso_BackLeg')
         pyrosim.Send_Motor_Neuron(name=4, jointName='Torso_FrontLeg')
 
-        for currentRow in range(0, 3):
-            for currentColumn in range(0, 2):
-                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn + 3,
+        for currentRow in range(0, c.numSensorNeurons):
+            for currentColumn in range(0, c.numMotorNeurons):
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,
                                      weight=self.weights[currentRow][currentColumn])
 
         pyrosim.End()
@@ -80,9 +77,9 @@ class SOLUTION:
             time.sleep(0.01)
 
     def Mutate(self):
-        randomRow = random.randint(0, 2)
-        randomColumn = random.randint(0, 1)
-        self.weights[randomRow, randomColumn] = random.random() * 2 - 1
+        randomRow = random.randint(0, c.numMotorNeurons - 1)
+        randomColumn = random.randint(0, c.numSensorNeurons - 1)
+        self.weights[randomRow, randomColumn] = random.random() * (c.numSensorNeurons - 1) - (c.numMotorNeurons - 1)
 
     def Set_ID(self, id):
         self.myID = id
@@ -100,6 +97,7 @@ class SOLUTION:
         f = open('fitness' + str(self.myID) + '.txt', 'r')
         self.fitness = float(f.readline())
         f.close()
+        print(self.fitness)
         os.system('rm fitness' + str(self.myID) + '.txt')
 
     def Get_Fitness(self):

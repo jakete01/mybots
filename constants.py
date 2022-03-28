@@ -7,4 +7,6 @@ amplitudeBack = np.pi / 3
 frequencyBack = 10
 phaseOffsetBack = np.pi / 4
 numberOfGenerations = 10
-populationSize = 10
+populationSize = 2
+numSensorNeurons = 3
+numMotorNeurons = 2
