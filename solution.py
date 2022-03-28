@@ -17,16 +17,20 @@ class SOLUTION:
         return self.weights
 
     def Evaluate(self, mode):
+        # Generate all aspects of the simulation
         self.Create_Brain()
         self.Create_Body()
         self.Create_World()
-        os.system("python3 simulate.py " + mode + " " + str(self.myID) + "2&>1 &")
+
+        # Call simulate.py from the command line
+        os.system("python3 simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
+
+        # Wait while the fitness file is not written to
         while not os.path.exists('fitness' + str(self.myID) + '.txt'):
             time.sleep(0.01)
 
         f = open('fitness' + str(self.myID) + '.txt', 'r')
         self.fitness = float(f.readline())
-        print('Fitness: ' + str(self.fitness))
         f.close()
 
     def Create_Body(self):
@@ -134,7 +138,7 @@ class SOLUTION:
         self.Create_Brain()
         self.Create_Body()
         self.Create_World()
-        os.system("python3 simulate.py " + mode + " " + str(self.myID) + " &")
+        os.system("python3 simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
 
     def Wait_For_Simulation_To_END(self):
         while not os.path.exists('fitness' + str(self.myID) + '.txt'):
@@ -143,7 +147,7 @@ class SOLUTION:
         f = open('fitness' + str(self.myID) + '.txt', 'r')
         self.fitness = float(f.readline())
         f.close()
-        print(self.fitness)
+        print("Fitness of solution " + str(self.myID) + ": " + str(self.fitness))
         os.system('rm fitness' + str(self.myID) + '.txt')
 
     def Get_Fitness(self):

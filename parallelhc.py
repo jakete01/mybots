@@ -46,10 +46,10 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[i] = self.children[i]
 
     def Print(self):
-        print()
+        print("\n")
         for i in range(0, constants.populationSize):
-            print(str(self.parents[i].fitness) + ' ' + str(self.children[i].fitness))
-        print()
+            print("Parent: %10f,  Child: %10f" % (self.parents[i].fitness, self.children[i].fitness))
+        print("\n")
 
     def Show_Best(self):
         lowest = 100
