@@ -14,7 +14,7 @@ def generate_robot():
     pyrosim.Start_SDF("world.sdf")
     pyrosim.Send_Cube(name="Box", pos=[x - 10, y - 10, z], size=[length, width, height])
     pyrosim.End()
-    pyrosim.Start_URDF("body1.urdf")
+    pyrosim.Start_URDF("body.urdf")
     pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1.5], size=[length, width, height])
     pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[-0.5, 0, 1])
     pyrosim.Send_Cube(name="BackLeg", pos=[-0.5, 0, -0.5], size=[length, width, height])

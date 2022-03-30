@@ -13,31 +13,19 @@ class SOLUTION:
         self.weights = np.random.rand(c.numSensorNeurons, c.numMotorNeurons)
         self.weights = self.weights * (c.numSensorNeurons - 1) - (c.numMotorNeurons - 1)
 
-    def Get_Weights(self):
-        return self.weights
 
-    def Evaluate(self, mode):
-        # Generate all aspects of the simulation
-        self.Create_Brain()
-        self.Create_Body()
-        self.Create_World()
+    # --------------------
+    # Generation functions
+    # --------------------
 
-        # Call simulate.py from the command line
-        os.system("python3 simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
-
-        # Wait while the fitness file is not written to
-        while not os.path.exists('fitness' + str(self.myID) + '.txt'):
-            time.sleep(0.01)
-
-        f = open('fitness' + str(self.myID) + '.txt', 'r')
-        self.fitness = float(f.readline())
-        f.close()
-
+    # Creates robot body, writes out to file
     def Create_Body(self):
         length = 1
         width = 1
         height = 1
-        pyrosim.Start_URDF("body1.urdf")
+        pyrosim.Start_URDF("body.urdf")
+
+        # Torso
         pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1], size=[length, width, height])
 
         # Front leg
@@ -72,12 +60,12 @@ class SOLUTION:
                            position=[1, 0, 0], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="LowerRightLeg", pos=[0, 0, -0.5], size=[.2, .2, 1])
 
-
         pyrosim.End()
-        while not os.path.exists('body1.urdf'):
+        while not os.path.exists('body.urdf'):
             time.sleep(0.01)
 
 
+    # Generates neural network, writes out to fil e
     def Create_Brain(self):
         pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 
@@ -112,6 +100,8 @@ class SOLUTION:
         while not os.path.exists('brain' + str(self.myID) + '.nndf'):
             time.sleep(0.01)
 
+
+    # Generates world elements, writes out to file
     def Create_World(self):
         length = 1
         width = 1
@@ -126,20 +116,57 @@ class SOLUTION:
         while not os.path.exists('world.sdf'):
             time.sleep(0.01)
 
+
+    # Runs simulate on the given set of data, gets the fitness value and records results in fitnessID.txt
+    def Evaluate(self, mode):
+        # Generate all aspects of the simulation
+        self.Create_Brain()
+        self.Create_Body()
+        self.Create_World()
+
+        # Call simulate.py from the command line
+        os.system("python3 simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
+
+        # Wait while the fitness file is not written to
+        while not os.path.exists('fitness' + str(self.myID) + '.txt'):
+            time.sleep(0.01)
+
+        f = open('fitness' + str(self.myID) + '.txt', 'r')
+        self.fitness = float(f.readline())
+        f.close()
+
+
+    # Returns this solutions fitness value
+    def Get_Fitness(self):
+        return self.fitness
+
+
+    # Returns this solution's matrix of synaptic weights
+    def Get_Weights(self):
+        return self.weights
+
+
+    # Randomly changes one of the synaptic weights
     def Mutate(self):
         randomRow = random.randint(0, c.numSensorNeurons - 1)
         randomColumn = random.randint(0, c.numMotorNeurons - 1)
         self.weights[randomRow, randomColumn] = random.random() * (c.numSensorNeurons - 1) - (c.numMotorNeurons - 1)
 
+
+    # Sets this solutions ID
     def Set_ID(self, id):
         self.myID = id
 
+
+    # Gives OS call to start the simulation for this solution
     def Start_Simulation(self, mode):
         self.Create_Brain()
         self.Create_Body()
         self.Create_World()
         os.system("python3 simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
 
+
+    # Waits until simulation is done before writing out fitness to file
     def Wait_For_Simulation_To_END(self):
         while not os.path.exists('fitness' + str(self.myID) + '.txt'):
             time.sleep(0.01)
@@ -148,7 +175,7 @@ class SOLUTION:
         self.fitness = float(f.readline())
         f.close()
         print("Fitness of solution " + str(self.myID) + ": " + str(self.fitness))
+
+        # Removes fitness file after use to avoid cluttering of directory
         os.system('rm fitness' + str(self.myID) + '.txt')
 
-    def Get_Fitness(self):
-        return self.fitness
