@@ -117,25 +117,6 @@ class SOLUTION:
             time.sleep(0.01)
 
 
-    # Runs simulate on the given set of data, gets the fitness value and records results in fitnessID.txt
-    def Evaluate(self, mode):
-        # Generate all aspects of the simulation
-        self.Create_Brain()
-        self.Create_Body()
-        self.Create_World()
-
-        # Call simulate.py from the command line
-        os.system("python3 simulate.py " + mode + " " + str(self.myID) + " 2&>1 &")
-
-        # Wait while the fitness file is not written to
-        while not os.path.exists('fitness' + str(self.myID) + '.txt'):
-            time.sleep(0.01)
-
-        f = open('fitness' + str(self.myID) + '.txt', 'r')
-        self.fitness = float(f.readline())
-        f.close()
-
-
     # Returns this solutions fitness value
     def Get_Fitness(self):
         return self.fitness
@@ -169,8 +150,10 @@ class SOLUTION:
     # Waits until simulation is done before writing out fitness to file
     def Wait_For_Simulation_To_END(self):
         while not os.path.exists('fitness' + str(self.myID) + '.txt'):
+            print('Waiting for fitness file')
             time.sleep(0.01)
 
+        print('Reading fitness in Wait_For...')
         f = open('fitness' + str(self.myID) + '.txt', 'r')
         self.fitness = float(f.readline())
         f.close()
