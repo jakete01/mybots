@@ -31,11 +31,11 @@ class ROBOT:
 
     # Calculates and returns this robots fitness value
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotId, 0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        basePosition = basePositionAndOrientation[0]
+        xPosition = basePosition[0]
         f = open('tmp' + str(self.solutionID) + '.txt', 'w')
-        f.write(str(xCoordinateOfLinkZero))
+        f.write(str(xPosition))
         f.close()
         os.system('mv tmp' + str(self.solutionID) + '.txt fitness' + str(self.solutionID) + '.txt')
 
