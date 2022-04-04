@@ -29,7 +29,7 @@ class ROBOT:
                 self.motors[jointName].Set_Value(desiredAngle, self.robotId)
 
 
-    # Calculates and returns this robot's fitness value
+    # Calculates and returns this robots fitness value
     def Get_Fitness(self):
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
@@ -71,4 +71,3 @@ class ROBOT:
     # Updates the neural network to change any synapse values necessary
     def Think(self):
         self.nn.Update()
-

@@ -20,7 +20,7 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Start_Simulation('DIRECT')
 
         for i in solutions:
-            solutions[i].Wait_For_Simulation_To_END()
+            solutions[i].Wait_For_Simulation_To_End()
 
 
     # runs evolve_for... for every child generation
@@ -83,5 +83,3 @@ class PARALLEL_HILL_CLIMBER:
                 lowest = self.parents[i].fitness
                 index = i
         self.parents[index].Start_Simulation('GUI')
-
-
