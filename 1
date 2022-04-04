@@ -1,20 +1,10 @@
 pybullet build time: Jan 24 2022 10:59:54
-Version = 4.1 INTEL-18.2.10
-Vendor = Intel Inc.
-Renderer = Intel(R) HD Graphics 6000
-b3Printf: Selected demo: Physics Server
-startThreads creating 1 threads.
-starting thread 0
-started thread 0 
-MotionThreadFunc thread started
-b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
-
-b3Printf: expected a world element, continuing without it.
-numActiveThreads = 0
-stopping threads
-destroy semaphore
-semaphore destroyed
-Thread with taskId 0 exiting
-Thread TERMINATED
-destroy main semaphore
-main semaphore destroyed
+b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+expected a world element, continuing without it.Traceback (most recent call last):
+  File "/Users/jaketeneyck/Desktop/mybots/simulate.py", line 9, in <module>
+    simulation.Get_Fitness()
+  File "/Users/jaketeneyck/Desktop/mybots/simulation.py", line 36, in Get_Fitness
+    self.robot.Get_Fitness()
+  File "/Users/jaketeneyck/Desktop/mybots/robot.py", line 34, in Get_Fitness
+    basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+AttributeError: 'ROBOT' object has no attribute 'robot'. Did you mean: 'robotId'?

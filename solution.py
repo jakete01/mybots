@@ -101,6 +101,71 @@ class SOLUTION:
             time.sleep(0.01)
 
 
+    # Generates body for spot robot dog
+    def Create_Spot_Body(self):
+        length = 2
+        width = .8
+        height = 1
+        pyrosim.Start_URDF("spotBody.urdf")
+
+        # Torso
+        pyrosim.Send_Cube(name="Torso", pos=[0, 0, 1], size=[length, width, height])
+
+        # Front left leg
+        pyrosim.Send_Joint(name="Torso_FrontLeftLeg", parent="Torso", child="FrontLeftLeg", type="revolute",
+                           position=[0, .5, 1], jointAxis="1 0 0")
+        pyrosim.Send_Cube(name="FrontLeftLeg", pos=[0, 0.5, 0], size=[.2, .2, .5])
+        pyrosim.Send_Joint(name="FrontLeftLeg_LowerFrontLeftLeg", parent="FrontLeftLeg", child="LowerFrontLeftLeg",
+                           type="revolute", position=[0, 1, 0], jointAxis="1 0 0")
+        pyrosim.Send_Cube(name="LowerFrontLeftLeg", pos=[0, 0, -0.5], size=[.2, .2, .5])
+
+        # Back left leg
+        pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute",
+                           position=[0, -0.5, 1], jointAxis="1 0 0")
+        pyrosim.Send_Cube(name="BackLeg", pos=[0, -0.5, 0], size=[.2, 1, .2])
+        pyrosim.Send_Joint(name="BackLeg_LowerBackLeg", parent="BackLeg", child="LowerBackLeg", type="revolute",
+                           position=[0, -1, 0], jointAxis="1 0 0")
+        pyrosim.Send_Cube(name="LowerBackLeg", pos=[0, 0, -0.5], size=[.2, .2, 1])
+
+        # Front right Leg
+        pyrosim.Send_Joint(name="Torso_LeftLeg", parent="Torso", child="LeftLeg", type="revolute",
+                           position=[-0.5, 0, 1], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="LeftLeg", pos=[-0.5, 0, 0], size=[1, .2, .2])
+        pyrosim.Send_Joint(name="LeftLeg_LowerLeftLeg", parent="LeftLeg", child="LowerLeftLeg", type="revolute",
+                           position=[-1, 0, 0], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="LowerLeftLeg", pos=[0, 0, -0.5], size=[.2, .2, 1])
+
+        # Back right leg
+        pyrosim.Send_Joint(name="Torso_RightLeg", parent="Torso", child="RightLeg", type="revolute",
+                           position=[0.5, 0, 1], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="RightLeg", pos=[0.5, 0, 0], size=[1, .2, .2])
+        pyrosim.Send_Joint(name="RightLeg_LowerRightLeg", parent="RightLeg", child="LowerRightLeg", type="revolute",
+                           position=[1, 0, 0], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="LowerRightLeg", pos=[0, 0, -0.5], size=[.2, .2, 1])
+
+        pyrosim.End()
+        while not os.path.exists('body.urdf'):
+            time.sleep(0.01)
+
+
+    # Generates brain for spot dog robot
+    def Create_Spot_Brain(self):
+        pyrosim.Start_NeuralNetwork("spotBrain" + str(self.myID) + ".nndf")
+
+        # Sensor neurons
+
+        # Motor neurons
+
+        # Adding synapses to connect neurons
+        for currentRow in range(0, c.numSensorNeurons):
+            for currentColumn in range(0, c.numMotorNeurons):
+                pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,
+                                     weight=self.weights[currentRow][currentColumn])
+
+        pyrosim.End()
+        while not os.path.exists('brain' + str(self.myID) + '.nndf'):
+            time.sleep(0.01)
+
     # Generates world elements, writes out to file
     def Create_World(self):
         length = 1
