@@ -36,7 +36,7 @@ class PARALLEL_HILL_CLIMBER:
 
 
     # Calls the evolution functions for the specified child
-    def Evolve_For_One_Generation(self):
+    def Evolve_For_One_Generation(self, directOrGUI):
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)

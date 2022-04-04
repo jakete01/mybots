@@ -150,10 +150,8 @@ class SOLUTION:
     # Waits until simulation is done before writing out fitness to file
     def Wait_For_Simulation_To_END(self):
         while not os.path.exists('fitness' + str(self.myID) + '.txt'):
-            print('Waiting for fitness file')
             time.sleep(0.01)
 
-        print('Reading fitness in Wait_For...')
         f = open('fitness' + str(self.myID) + '.txt', 'r')
         self.fitness = float(f.readline())
         f.close()
