@@ -29,9 +29,9 @@ class ROBOT:
                 self.motors[jointName].Set_Value(desiredAngle, self.robotId)
 
 
-    # Calculates and returns this robots fitness value
+    # Calculates and returns this robot's fitness value
     def Get_Fitness(self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
         f = open('tmp' + str(self.solutionID) + '.txt', 'w')

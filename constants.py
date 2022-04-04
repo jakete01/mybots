@@ -11,8 +11,8 @@ frequencyBack = 10
 phaseOffsetBack = np.pi / 4
 
 # Constants for modifying the number of trials
-numberOfGenerations = 1
-populationSize = 1
+numberOfGenerations = 2
+populationSize = 2
 numSensorNeurons = 9
 numMotorNeurons = 8
 motorJointRange = .2
