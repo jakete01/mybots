@@ -60,6 +60,16 @@ class SOLUTION:
                            position=[0, 0.5, -0.2], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="LowerRightLeg", pos=[0, 0, -0.25], size=[.2, .2, .5])
 
+
+        # Arm
+        pyrosim.Send_Joint(name='Torso_LowerArm', parent='Torso', child='LowerArm', type="revolute",
+                           position=[-0.5, 0, 2.1], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="LowerArm", pos=[0, 0, 0.4], size=[.2, .2, 0.8])
+        pyrosim.Send_Joint(name="LowerArm_UpperArm", parent="LowerArm", child="UpperArm", type="revolute",
+                           position=[0, 0, 0.8], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="UpperArm", pos=[-0.4, 0, 0.1], size=[.8, .2, .2])
+
+
         pyrosim.End()
         while not os.path.exists('body.urdf'):
             time.sleep(0.01)
