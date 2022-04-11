@@ -53,18 +53,18 @@
     <joint name="FrontLeg_LowerFrontLeg" type="revolute">
        <parent link="FrontLeg"/>
        <child  link="LowerFrontLeg"/>
-       <origin rpy="0 0 0" xyz="0 -0.5 -0.25" />
+       <origin rpy="0 0 0" xyz="-0.1 -0.5 -0.25" />
      <axis xyz="0 1 0"/>
        <limit effort="0.0" lower="-3.14159" upper="3.14159" velocity="0.0"/>
     </joint>
     <link name="LowerFrontLeg">
         <inertial>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="-0.1 0 -0.25" rpy="0 0 0"/>
             <mass value="1" />
             <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
         </inertial>
         <visual>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="-0.1 0 -0.25" rpy="0 0 0"/>
             <geometry>
                 <box size="0.2 0.2 0.5" />
             </geometry>
@@ -73,7 +73,7 @@
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="-0.1 0 -0.25" rpy="0 0 0"/>
             <geometry>
                 <box size="0.2 0.2 0.5" />
             </geometry>
@@ -111,18 +111,18 @@
     <joint name="BackLeg_LowerBackLeg" type="revolute">
        <parent link="BackLeg"/>
        <child  link="LowerBackLeg"/>
-       <origin rpy="0 0 0" xyz="0 -0.5 -0.2" />
+       <origin rpy="0 0 0" xyz="0.1 -0.5 -0.2" />
      <axis xyz="0 1 0"/>
        <limit effort="0.0" lower="-3.14159" upper="3.14159" velocity="0.0"/>
     </joint>
     <link name="LowerBackLeg">
         <inertial>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="0.1 0 -0.25" rpy="0 0 0"/>
             <mass value="1" />
             <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
         </inertial>
         <visual>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="0.1 0 -0.25" rpy="0 0 0"/>
             <geometry>
                 <box size="0.2 0.2 0.5" />
             </geometry>
@@ -131,7 +131,7 @@
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="0.1 0 -0.25" rpy="0 0 0"/>
             <geometry>
                 <box size="0.2 0.2 0.5" />
             </geometry>
@@ -169,18 +169,18 @@
     <joint name="LeftLeg_LowerLeftLeg" type="revolute">
        <parent link="LeftLeg"/>
        <child  link="LowerLeftLeg"/>
-       <origin rpy="0 0 0" xyz="0 0.5 -0.2" />
+       <origin rpy="0 0 0" xyz="-0.1 0.5 -0.2" />
      <axis xyz="0 1 0"/>
        <limit effort="0.0" lower="-3.14159" upper="3.14159" velocity="0.0"/>
     </joint>
     <link name="LowerLeftLeg">
         <inertial>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="-0.1 0 -0.25" rpy="0 0 0"/>
             <mass value="1" />
             <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
         </inertial>
         <visual>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="-0.1 0 -0.25" rpy="0 0 0"/>
             <geometry>
                 <box size="0.2 0.2 0.5" />
             </geometry>
@@ -189,7 +189,7 @@
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="-0.1 0 -0.25" rpy="0 0 0"/>
             <geometry>
                 <box size="0.2 0.2 0.5" />
             </geometry>
@@ -227,18 +227,18 @@
     <joint name="RightLeg_LowerRightLeg" type="revolute">
        <parent link="RightLeg"/>
        <child  link="LowerRightLeg"/>
-       <origin rpy="0 0 0" xyz="0 0.5 -0.2" />
+       <origin rpy="0 0 0" xyz="0.1 0.5 -0.2" />
      <axis xyz="0 1 0"/>
        <limit effort="0.0" lower="-3.14159" upper="3.14159" velocity="0.0"/>
     </joint>
     <link name="LowerRightLeg">
         <inertial>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="0.1 0 -0.25" rpy="0 0 0"/>
             <mass value="1" />
             <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
         </inertial>
         <visual>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="0.1 0 -0.25" rpy="0 0 0"/>
             <geometry>
                 <box size="0.2 0.2 0.5" />
             </geometry>
@@ -247,7 +247,7 @@
             </material>
         </visual>
         <collision>
-            <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+            <origin xyz="0.1 0 -0.25" rpy="0 0 0"/>
             <geometry>
                 <box size="0.2 0.2 0.5" />
             </geometry>
