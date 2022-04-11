@@ -68,6 +68,13 @@ class SOLUTION:
         pyrosim.Send_Joint(name="LowerArm_UpperArm", parent="LowerArm", child="UpperArm", type="revolute",
                            position=[0, 0, 0.8], jointAxis="0 1 0")
         pyrosim.Send_Cube(name="UpperArm", pos=[-0.4, 0, 0.1], size=[.8, .2, .2])
+        # Fingers
+        pyrosim.Send_Joint(name='UpperArm_TopFinger', parent='UpperArm', child='TopFinger', type="revolute",
+                           position=[-0.8, 0, 0.1], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="TopFinger", pos=[-0.2, 0, 0.1], size=[.4, .2, 0.1])
+        pyrosim.Send_Joint(name="UpperArm_BottomFinger", parent="UpperArm", child="BottomFinger", type="revolute",
+                           position=[-0.8, 0, -0.1], jointAxis="0 1 0")
+        pyrosim.Send_Cube(name="BottomFinger", pos=[-0.2, 0, 0.1], size=[.4, .2, .1])
 
 
         pyrosim.End()
