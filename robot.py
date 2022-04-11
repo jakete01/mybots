@@ -1,6 +1,7 @@
 import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import pybullet as p
+import numpy as np
 from sensor import SENSOR
 from motor import MOTOR
 import constants as c
@@ -29,11 +30,11 @@ class ROBOT:
                 self.motors[jointName].Set_Value(desiredAngle, self.robotId)
 
 
-    # Calculates and returns this robots fitness value
+    # Calculates and returns this robot's fitness value
     def Get_Fitness(self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
-        basePosition = basePositionAndOrientation[0]
-        xPosition = basePosition[0]
+        stateOfLinkZero = p.getLinkState(self.robotId, 0)
+        linkPosition = stateOfLinkZero[0]
+        xPosition = linkPosition[0]
         f = open('tmp' + str(self.solutionID) + '.txt', 'w')
         f.write(str(xPosition))
         f.close()
@@ -48,10 +49,7 @@ class ROBOT:
         self.motors = {}
 
         for jointName in pyrosim.jointNamesToIndices:
-            if jointName == 'Torso_BackLeg':
-                self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency, self.offset)
-            else:
-                self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency, self.offset)
+            self.motors[jointName] = MOTOR(jointName, self.amplitude, self.frequency, self.offset)
 
 
     # Prepares sensors to work properly

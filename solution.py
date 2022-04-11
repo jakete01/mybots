@@ -82,7 +82,7 @@ class SOLUTION:
             time.sleep(0.01)
 
 
-    # Generates neural network, writes out to fil e
+    # Generates neural network, writes out to file
     def Create_Brain(self):
         pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 
