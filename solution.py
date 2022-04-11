@@ -96,16 +96,24 @@ class SOLUTION:
         pyrosim.Send_Sensor_Neuron(name=6, linkName='LowerFrontLeg')
         pyrosim.Send_Sensor_Neuron(name=7, linkName='LowerLeftLeg')
         pyrosim.Send_Sensor_Neuron(name=8, linkName='LowerRightLeg')
+        pyrosim.Send_Sensor_Neuron(name=9, linkName='LowerArm')
+        pyrosim.Send_Sensor_Neuron(name=10, linkName='UpperArm')
+        pyrosim.Send_Sensor_Neuron(name=11, linkName='TopFinger')
+        pyrosim.Send_Sensor_Neuron(name=12, linkName='BottomFinger')
 
         # Motor neurons
-        pyrosim.Send_Motor_Neuron(name=9, jointName='Torso_BackLeg')
-        pyrosim.Send_Motor_Neuron(name=10, jointName='Torso_FrontLeg')
-        pyrosim.Send_Motor_Neuron(name=11, jointName='Torso_LeftLeg')
-        pyrosim.Send_Motor_Neuron(name=12, jointName='Torso_RightLeg')
-        pyrosim.Send_Motor_Neuron(name=13, jointName='BackLeg_LowerBackLeg')
-        pyrosim.Send_Motor_Neuron(name=14, jointName='FrontLeg_LowerFrontLeg')
-        pyrosim.Send_Motor_Neuron(name=15, jointName='LeftLeg_LowerLeftLeg')
-        pyrosim.Send_Motor_Neuron(name=16, jointName='RightLeg_LowerRightLeg')
+        pyrosim.Send_Motor_Neuron(name=13, jointName='Torso_BackLeg')
+        pyrosim.Send_Motor_Neuron(name=14, jointName='Torso_FrontLeg')
+        pyrosim.Send_Motor_Neuron(name=15, jointName='Torso_LeftLeg')
+        pyrosim.Send_Motor_Neuron(name=16, jointName='Torso_RightLeg')
+        pyrosim.Send_Motor_Neuron(name=17, jointName='BackLeg_LowerBackLeg')
+        pyrosim.Send_Motor_Neuron(name=18, jointName='FrontLeg_LowerFrontLeg')
+        pyrosim.Send_Motor_Neuron(name=19, jointName='LeftLeg_LowerLeftLeg')
+        pyrosim.Send_Motor_Neuron(name=20, jointName='RightLeg_LowerRightLeg')
+        pyrosim.Send_Motor_Neuron(name=21, jointName='Torso_LowerArm')
+        pyrosim.Send_Motor_Neuron(name=22, jointName='LowerArm_UpperArm')
+        pyrosim.Send_Motor_Neuron(name=23, jointName='UpperArm_TopFinger')
+        pyrosim.Send_Motor_Neuron(name=24, jointName='UpperArm_BottomFinger')
 
         # Adding synapses to connect neurons
         for currentRow in range(0, c.numSensorNeurons):
