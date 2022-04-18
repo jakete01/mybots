@@ -23,19 +23,19 @@ class ROBOT:
 
 
     # Sends motor values to the motors, causing the robot to move
-    def Act(self, i):
+    def Act(self):
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName) * self.motors[jointName].values[i] * constants.motorJointRange
+                desiredAngle = self.nn.Get_Value_Of(neuronName) * constants.motorJointRange
                 self.motors[jointName].Set_Value(desiredAngle, self.robotId)
 
 
     # Calculates and returns this robot's fitness value
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotId, 0)
-        linkPosition = stateOfLinkZero[0]
-        xPosition = linkPosition[0]
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+        basePosition = basePositionAndOrientation[0]
+        xPosition = basePosition[0]
         f = open('tmp' + str(self.solutionID) + '.txt', 'w')
         f.write(str(xPosition))
         f.close()

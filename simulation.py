@@ -47,4 +47,4 @@ class SIMULATION:
 
             self.robot.Sense(i)
             self.robot.Think()
-            self.robot.Act(i)
+            self.robot.Act()
