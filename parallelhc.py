@@ -70,7 +70,7 @@ class PARALLEL_HILL_CLIMBER:
     # Selects for the more successful solution: parent or child and replaces parent with the better
     def Select(self):
         for i in range(0, constants.populationSize):
-            if self.parents[i].fitness < self.children[i].fitness:
+            if self.parents[i].fitness > self.children[i].fitness:
                 self.parents[i] = self.children[i]
 
 
