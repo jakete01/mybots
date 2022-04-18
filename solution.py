@@ -116,6 +116,32 @@ class SOLUTION:
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn + c.numSensorNeurons,
                                      weight=self.weights[currentRow][currentColumn])
 
+        # ---------------------
+        # Linking leg sensors to motor neurons of arm
+        # ---------------------
+
+        # Toros_lowerArm
+        pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=16, weight=self.weights[1][11])
+        pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=16, weight=self.weights[2][11])
+        pyrosim.Send_Synapse(sourceNeuronName=3, targetNeuronName=16, weight=self.weights[3][11])
+        pyrosim.Send_Synapse(sourceNeuronName=4, targetNeuronName=16, weight=self.weights[4][11])
+
+        # LowerArm_UpperArm
+        pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=17, weight=self.weights[1][11])
+        pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=17, weight=self.weights[2][11])
+        pyrosim.Send_Synapse(sourceNeuronName=3, targetNeuronName=17, weight=self.weights[3][11])
+        pyrosim.Send_Synapse(sourceNeuronName=4, targetNeuronName=17, weight=self.weights[4][11])
+
+        # Fingers
+        pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=18, weight=self.weights[1][11])
+        pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=18, weight=self.weights[2][11])
+        pyrosim.Send_Synapse(sourceNeuronName=3, targetNeuronName=18, weight=self.weights[3][11])
+        pyrosim.Send_Synapse(sourceNeuronName=4, targetNeuronName=18, weight=self.weights[4][11])
+        pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=19, weight=self.weights[1][11])
+        pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=19, weight=self.weights[2][11])
+        pyrosim.Send_Synapse(sourceNeuronName=3, targetNeuronName=19, weight=self.weights[3][11])
+        pyrosim.Send_Synapse(sourceNeuronName=4, targetNeuronName=19, weight=self.weights[4][11])
+
         pyrosim.End()
         while not os.path.exists('brain' + str(self.myID) + '.nndf'):
             time.sleep(0.01)
