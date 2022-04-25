@@ -1,6 +1,7 @@
 import solution
 import constants
 import copy
+import time
 
 
 class PARALLEL_HILL_CLIMBER:
@@ -44,17 +45,20 @@ class PARALLEL_HILL_CLIMBER:
         self.Print()
         self.Select()
         self.Get_Best_Per_Gen()
+        # Sleep 30 seconds between generations so laptop doesn't melt
+        time.sleep(5)
 
 
     # Writes the best fitness of a generation to data file
     def Get_Best_Per_Gen(self):
-        f = open('data/bestFitness' + str(self.testCase), 'a')
+        f = open('data/bestFitness' + str(self.testCase) + '.npy', 'a')
         value = 100
         for i in self.parents:
             if value > self.parents[i].Get_Fitness():
                 value = self.parents[i].Get_Fitness()
         f.write(str(value) + '\n')
         f.close()
+
 
     # Randomly changes one synapse weight of the child
     def Mutate(self):
@@ -94,4 +98,4 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < lowest:
                 lowest = self.parents[i].fitness
                 index = i
-        self.parents[index].Start_Simulation('DIRECT', self.testCase)
+        self.parents[index].Start_Simulation('GUI', self.testCase)

@@ -3,6 +3,7 @@
 import time
 import os
 
+os.system('rm data/bestFitnessa.npy data/bestFitnessb.npy')
 start = time.perf_counter()
 os.system('python3 search.py a')
 time.sleep(2)
