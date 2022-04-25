@@ -94,4 +94,4 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < lowest:
                 lowest = self.parents[i].fitness
                 index = i
-        self.parents[index].Start_Simulation('GUI', self.testCase)
+        self.parents[index].Start_Simulation('DIRECT', self.testCase)
