@@ -6,9 +6,10 @@ import copy
 class PARALLEL_HILL_CLIMBER:
 
 
-    def __init__(self):
+    def __init__(self, testCase):
         self.parents = {}
         self.nextAvailableID = 0
+        self.testCase = testCase
         for i in range(0, constants.populationSize):
             self.parents.update({i: solution.SOLUTION(self.nextAvailableID)})
             self.nextAvailableID += 1
@@ -17,7 +18,7 @@ class PARALLEL_HILL_CLIMBER:
     # Starts and waits for each simulation to wait to avoid any parallel conflicts
     def Evaluate(self, solutions):
         for i in solutions:
-            solutions[i].Start_Simulation('DIRECT')
+            solutions[i].Start_Simulation('DIRECT', self.testCase)
 
         for i in solutions:
             solutions[i].Wait_For_Simulation_To_End()
@@ -42,7 +43,18 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.children)
         self.Print()
         self.Select()
+        self.Get_Best_Per_Gen()
 
+
+    # Writes the best fitness of a generation to data file
+    def Get_Best_Per_Gen(self):
+        f = open('data/bestFitness' + str(self.testCase), 'a')
+        value = 100
+        for i in self.parents:
+            if value > self.parents[i].Get_Fitness():
+                value = self.parents[i].Get_Fitness()
+        f.write(str(value) + '\n')
+        f.close()
 
     # Randomly changes one synapse weight of the child
     def Mutate(self):
@@ -82,4 +94,4 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < lowest:
                 lowest = self.parents[i].fitness
                 index = i
-        self.parents[index].Start_Simulation('GUI')
+        self.parents[index].Start_Simulation('GUI', self.testCase)
