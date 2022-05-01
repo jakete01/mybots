@@ -1,11 +1,25 @@
 import numpy
 import matplotlib.pyplot
 
-fitnessA = numpy.load('data/bestFitnessa.npy')
-fitnessB = numpy.load('data/bestFitnessb.npy')
+f = open('data/bestFitnessa.npy', 'r')
+runA = numpy.zeros(200)
+lines = f.readlines()
+for i in range(0, len(lines)):
+    runA[i] = float(lines[i])
+numpy.save('tempA.npy', runA)
+
+f = open('data/bestFitnessb.npy', 'r')
+runB = numpy.zeros(200)
+lines = f.readlines()
+for i in range(0, len(lines)):
+    runB[i] = float(lines[i])
+numpy.save('tempB.npy', runB)
+
+fitnessA = numpy.load('tempA.npy')
+fitnessB = numpy.load('tempB.npy')
 
 
-matplotlib.pyplot.plot(fitnessA, label='Fitness for Spot', linewidth=2)
-matplotlib.pyplot.plot(fitnessB, label='Fitness for Quadruped', linewidth=2)
+matplotlib.pyplot.plot(fitnessA, label='Fitness: Recurrent Connections', linewidth=2)
+matplotlib.pyplot.plot(fitnessB, label='Fitness: No Recurrent Connections', linewidth=2)
 matplotlib.pyplot.legend()
 matplotlib.pyplot.show()

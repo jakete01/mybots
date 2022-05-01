@@ -51,7 +51,7 @@ class PARALLEL_HILL_CLIMBER:
 
     # Writes the best fitness of a generation to data file
     def Get_Best_Per_Gen(self):
-        f = open('data/bestFitness' + str(self.testCase) + '.npy', 'a')
+        f = open('data/bestFitnessRun2' + str(self.testCase) + '.npy', 'a')
         value = 100
         for i in self.parents:
             if value > self.parents[i].Get_Fitness():
@@ -98,4 +98,9 @@ class PARALLEL_HILL_CLIMBER:
             if self.parents[i].fitness < lowest:
                 lowest = self.parents[i].fitness
                 index = i
+
+        # Save NN of the best solution for playback
+        f = open('data/bestNNRun2' + str(self.testCase) + 'txt')
+        f.write(self.parents[index].Get_Weights())
+        f.close()
         self.parents[index].Start_Simulation('GUI', self.testCase)
