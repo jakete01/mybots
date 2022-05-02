@@ -100,7 +100,7 @@ class PARALLEL_HILL_CLIMBER:
                 index = i
 
         # Save NN of the best solution for playback
-        f = open('data/bestNNRun2' + str(self.testCase) + 'txt')
+        f = open('data/bestNNRun2' + str(self.testCase) + 'txt', 'a')
         f.write(self.parents[index].Get_Weights())
         f.close()
         self.parents[index].Start_Simulation('GUI', self.testCase)
