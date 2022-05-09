@@ -253,7 +253,8 @@ class SOLUTION:
         f = open('fitness' + str(self.myID) + '.txt', 'r')
         self.fitness = float(f.readline())
         f.close()
-        print("Fitness of solution " + str(self.myID) + ": " + str(self.fitness))
+        # print("Fitness of solution " + str(self.myID) + ": " + str(self.fitness))
+        print(self.myID)
 
         # Removes fitness file after use to avoid cluttering of directory
         os.system('rm fitness' + str(self.myID) + '.txt')

@@ -43,7 +43,7 @@ class SIMULATION:
 
             # If mode = DIRECT, don't show simulation to save time, but print results
             if self.directOrGUI == 'GUI':
-                time.sleep(1/1000)
+                time.sleep(1/5000)
 
             self.robot.Sense(i)
             self.robot.Think()
