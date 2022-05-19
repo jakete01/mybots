@@ -45,9 +45,9 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.children)
         # self.Print()
         self.Select()
-        self.Get_Best_Per_Gen()
-        # Sleep 30 seconds between generations so laptop doesn't melt
-        time.sleep(1)
+        # self.Get_Best_Per_Gen()
+        # Sleep between generations so laptop doesn't melt
+        # time.sleep(1)
 
 
     # Writes the best fitness of a generation to data file
@@ -101,7 +101,7 @@ class PARALLEL_HILL_CLIMBER:
                 index = i
 
         # Save NN of the best solution for playback
-        f = open('data/bestNNRun15' + str(self.testCase) + '.npy', 'a')
-        numpy.save('data/bestNNRun15' + str(self.testCase) + '.npy', 'a')
-        f.close()
+        # f = open('data/bestNNRun15' + str(self.testCase) + '.npy', 'a')
+        # numpy.save('data/bestNNRun15' + str(self.testCase) + '.npy', 'a')
+        # f.close()
         self.parents[index].Start_Simulation('GUI', self.testCase)
